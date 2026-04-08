@@ -211,62 +211,66 @@ def run_episode(
 
 
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
 def main():
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--task", default="all")
-    parser.add_argument("--episodes", type=int, default=3)
-    parser.add_argument("--server", default=DEFAULT_SERVER)
-    parser.add_argument("--model", default=DEFAULT_MODEL)
-    parser.add_argument("--verbose", action="store_true")
-
-    args = parser.parse_args()
-
     api_key = os.getenv("HF_API_KEY")
 
     if not api_key:
-        print("ERROR: Set HF_API_KEY")
-        sys.exit(1)
+        print(json.dumps({
+            "error": "HF_API_KEY not set"
+        }))
+        return
 
-    # Check server health
+    server = DEFAULT_SERVER
+    model = DEFAULT_MODEL
+
+    # Health Check
     try:
-        r = requests.get(f"{args.server}/health")
-        print("✓ Server running:", r.json())
+        requests.get(f"{server}/health", timeout=10)
     except Exception:
-        print("Server not running. Start server.py first")
-        sys.exit(1)
+        print(json.dumps({
+            "error": "Server not reachable"
+        }))
+        return
 
-    tasks = (
-        ["easy_triage", "medium_response", "hard_escalation"]
-        if args.task == "all"
-        else [args.task]
-    )
+    tasks = [
+        "easy_triage",
+        "medium_response",
+        "hard_escalation"
+    ]
+
+    results = {}
 
     for task_id in tasks:
 
-        print(f"\nRunning {task_id}")
-
         scores = []
 
-        for ep in range(args.episodes):
+        for _ in range(2):
 
             result = run_episode(
                 api_key=api_key,
-                server=args.server,
+                server=server,
                 task_id=task_id,
-                model=args.model
+                model=model
             )
 
             scores.append(result["final_score"])
-            print("Score:", result["final_score"])
 
             time.sleep(0.5)
 
-        mean = statistics.mean(scores)
-        print(f"Mean Score: {mean:.4f}")
+        results[task_id] = {
+            "mean": round(statistics.mean(scores), 4),
+            "scores": scores
+        }
+
+    print(json.dumps({
+        "baseline_scores": results,
+        "model": model
+    }, indent=2))
 
 
 if __name__ == "__main__":
