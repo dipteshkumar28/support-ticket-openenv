@@ -121,17 +121,35 @@ def list_tasks():
     }
 
 
-@app.post("/reset", response_model=ResetResponse)
-def reset(body: ResetRequest):
-    if body.task_id not in VALID_TASK_IDS:
-        raise HTTPException(status_code=400, detail=f"task_id must be one of {list(VALID_TASK_IDS)}")
+from fastapi import Body
+from typing import Optional
 
-    session_id = body.session_id or str(uuid.uuid4())
-    env = SupportTicketEnv(task_id=body.task_id)
+@app.post("/reset", response_model=ResetResponse)
+def reset(body: Optional[ResetRequest] = Body(default=None)):
+
+    if body is None:
+        task_id = "easy_triage"
+        session_id = str(uuid.uuid4())
+    else:
+        task_id = body.task_id
+        session_id = body.session_id or str(uuid.uuid4())
+
+    if task_id not in VALID_TASK_IDS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"task_id must be one of {list(VALID_TASK_IDS)}"
+        )
+
+    env = SupportTicketEnv(task_id=task_id)
     obs = env.reset()
+
     _sessions[session_id] = env
 
-    return ResetResponse(session_id=session_id, task_id=body.task_id, observation=obs)
+    return ResetResponse(
+        session_id=session_id,
+        task_id=task_id,
+        observation=obs
+    )
 
 
 @app.post("/step", response_model=StepResult)
