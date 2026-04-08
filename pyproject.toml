@@ -1,7 +1,6 @@
 [project]
 name = "support-ticket-openenv"
 version = "0.1.0"
-description = "Support Ticket OpenEnv"
 requires-python = ">=3.10"
 
 dependencies = [
@@ -13,5 +12,8 @@ dependencies = [
     "openenv-core"
 ]
 
+[project.scripts]
+server = "server.app:app"
+
 [tool.openenv]
-entrypoint = "server:app"
+entrypoint = "server.app:app"
