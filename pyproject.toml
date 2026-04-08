@@ -1,0 +1,17 @@
+[project]
+name = "support-ticket-openenv"
+version = "0.1.0"
+description = "Support Ticket OpenEnv"
+requires-python = ">=3.10"
+
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "requests",
+    "huggingface_hub",
+    "openenv-core"
+]
+
+[tool.openenv]
+entrypoint = "server:app"
