@@ -1,4 +1,13 @@
 <<<<<<< HEAD
+---
+title: Support Ticket OpenEnv
+emoji: 🧠
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
 # 🎫 Support Ticket OpenEnv
 
 > A real-world **Customer Support Ticket Resolution** environment for training and evaluating AI agents.  
