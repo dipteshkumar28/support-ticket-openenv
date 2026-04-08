@@ -1,5 +1,3 @@
-
-
 ---
 title: Support Ticket OpenEnv
 emoji: 🎫
