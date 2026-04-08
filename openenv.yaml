@@ -1,0 +1,73 @@
+name: support-ticket-env
+version: "1.0.0"
+description: >
+  A real-world customer support ticket resolution environment where an AI agent
+  triages, categorises, drafts responses, and escalates tickets across three
+  difficulty tiers. Designed to benchmark agent performance on professional
+  written communication, policy adherence, and multi-step reasoning under
+  realistic workplace constraints.
+author: OpenEnv Community
+license: MIT
+tags:
+  - openenv
+  - customer-support
+  - nlp
+  - real-world
+  - triage
+  - communication
+
+tasks:
+  - id: easy_triage
+    name: "Ticket Triage & Categorisation"
+    difficulty: easy
+    description: >
+      Given a single inbound customer ticket, the agent must assign the correct
+      category, urgency level, and a one-sentence internal routing note.
+    max_steps: 5
+    reward_range: [0.0, 1.0]
+
+  - id: medium_response
+    name: "Draft Customer Response"
+    difficulty: medium
+    description: >
+      Given a ticket and company knowledge-base snippets, draft a complete,
+      policy-compliant customer-facing reply that fully resolves the issue.
+    max_steps: 10
+    reward_range: [0.0, 1.0]
+
+  - id: hard_escalation
+    name: "Multi-Ticket Escalation Workflow"
+    difficulty: hard
+    description: >
+      Manage a queue of 5 tickets simultaneously: triage, draft, escalate where
+      needed, merge duplicates, and produce a shift-handoff summary — all within
+      a budget of actions. Partial credit awarded at every stage.
+    max_steps: 30
+    reward_range: [0.0, 1.0]
+
+observation_space:
+  type: object
+  description: >
+    Structured view of the current ticket queue, the active ticket under focus,
+    available knowledge-base articles, action history, and step budget remaining.
+
+action_space:
+  type: object
+  description: >
+    Discrete + text hybrid. Agent picks an action_type from an enum and
+    optionally supplies a text payload (response draft, routing note, etc.).
+  action_types:
+    - READ_TICKET
+    - SEARCH_KB
+    - SET_CATEGORY
+    - SET_URGENCY
+    - ADD_NOTE
+    - DRAFT_RESPONSE
+    - SEND_RESPONSE
+    - ESCALATE
+    - MERGE_TICKETS
+    - CLOSE_TICKET
+    - SUBMIT_HANDOFF
+
+entry_point: "env.support_env:SupportTicketEnv"
+api_version: "0.1"
