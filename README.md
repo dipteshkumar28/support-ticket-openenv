@@ -342,21 +342,7 @@ The Space serves the FastAPI application on port 7860. No additional configurati
 
 **Space metadata** (`README.md` front-matter for HF):
 
-```yaml
----
-title: Support Ticket OpenEnv
-emoji: 🎫
-colorFrom: blue
-colorTo: indigo
-sdk: docker
-pinned: false
-tags:
-  - openenv
-  - reinforcement-learning
-  - customer-support
-  - agent-evaluation
----
-```
+
 
 ---
 
