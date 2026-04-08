@@ -7,3 +7,5 @@ requests
 python-multipart>=0.0.18
 pyyaml
 numpy
+huggingface_hub>=0.23.0
+openenv-core
