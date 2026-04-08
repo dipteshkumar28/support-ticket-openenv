@@ -399,16 +399,15 @@ MIT License — see [LICENSE](LICENSE) for details.
   note   = {OpenEnv-compatible environment}
 }
 ```
-#   s u p p o r t - t i c k e t - o p e n e n v  
- 
+
 =======
 ---
-title: Support Ticket Openenv
+title: Support Ticket OpenEnv
 emoji: 🚀
-colorFrom: red
+colorFrom: blue
 colorTo: red
 sdk: docker
-app_port: 8501
+app_port: 7860
 tags:
 - streamlit
 pinned: false
