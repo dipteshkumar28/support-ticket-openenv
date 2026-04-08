@@ -1,3 +1,13 @@
+---
+title: Support Ticket OpenEnv
+emoji: 🧠
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 name: support-ticket-env
 version: "1.0.0"
 description: >
