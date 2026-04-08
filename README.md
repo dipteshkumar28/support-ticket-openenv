@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎫 Support Ticket OpenEnv
 
 > A real-world **Customer Support Ticket Resolution** environment for training and evaluating AI agents.  
@@ -400,3 +401,24 @@ MIT License — see [LICENSE](LICENSE) for details.
 ```
 #   s u p p o r t - t i c k e t - o p e n e n v  
  
+=======
+---
+title: Support Ticket Openenv
+emoji: 🚀
+colorFrom: red
+colorTo: red
+sdk: docker
+app_port: 8501
+tags:
+- streamlit
+pinned: false
+short_description: Streamlit template space
+---
+
+# Welcome to Streamlit!
+
+Edit `/src/streamlit_app.py` to customize this app to your heart's desire. :heart:
+
+If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
+forums](https://discuss.streamlit.io).
+>>>>>>> d4bf0908c8d41d04ff6533c79a7ef5ab6c4207b4

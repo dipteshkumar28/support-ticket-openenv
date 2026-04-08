@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 fastapi==0.111.0
 uvicorn[standard]==0.29.0
 pydantic==2.7.1
@@ -7,3 +8,8 @@ pytest==8.2.0
 httpx==0.27.0
 python-multipart==0.0.9
 pyyaml==6.0.1
+=======
+altair
+pandas
+streamlit
+>>>>>>> d4bf0908c8d41d04ff6533c79a7ef5ab6c4207b4
