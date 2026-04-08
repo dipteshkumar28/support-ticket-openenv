@@ -1,16 +1,23 @@
-<<<<<<< HEAD
+
+
 ---
 title: Support Ticket OpenEnv
-emoji: 🧠
+emoji: 🎫
 colorFrom: blue
-colorTo: green
+colorTo: indigo
 sdk: docker
 app_port: 7860
 pinned: false
+tags:
+  - openenv
+  - reinforcement-learning
+  - customer-support
+  - agent-evaluation
 ---
+
 # 🎫 Support Ticket OpenEnv
 
-> A real-world **Customer Support Ticket Resolution** environment for training and evaluating AI agents.  
+A real-world Customer Support Ticket Resolution environment for training and evaluating AI agents. 
 > Implements the full [OpenEnv](https://openenv.dev) specification: typed models, `step()`/`reset()`/`state()` API, deterministic graders, and a multi-difficulty task suite.
 
 [![OpenEnv](https://img.shields.io/badge/OpenEnv-v0.1-blue)](https://openenv.dev)
