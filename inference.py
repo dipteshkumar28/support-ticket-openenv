@@ -213,15 +213,13 @@ def run_episode(
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
-
 def main():
 
     api_key = os.getenv("HF_API_KEY")
 
     if not api_key:
-        print(json.dumps({
-            "error": "HF_API_KEY not set"
-        }))
+        print("[START] task=init", flush=True)
+        print("[END] task=init score=0 steps=0", flush=True)
         return
 
     server = DEFAULT_SERVER
@@ -231,9 +229,8 @@ def main():
     try:
         requests.get(f"{server}/health", timeout=10)
     except Exception:
-        print(json.dumps({
-            "error": "Server not reachable"
-        }))
+        print("[START] task=health", flush=True)
+        print("[END] task=health score=0 steps=0", flush=True)
         return
 
     tasks = [
@@ -242,13 +239,13 @@ def main():
         "hard_escalation"
     ]
 
-    results = {}
-
     for task_id in tasks:
+
+        print(f"[START] task={task_id}", flush=True)
 
         scores = []
 
-        for _ in range(2):
+        for step in range(2):
 
             result = run_episode(
                 api_key=api_key,
@@ -257,19 +254,22 @@ def main():
                 model=model
             )
 
-            scores.append(result["final_score"])
+            score = result["final_score"]
+            scores.append(score)
+
+            print(
+                f"[STEP] task={task_id} step={step} reward={score}",
+                flush=True
+            )
 
             time.sleep(0.5)
 
-        results[task_id] = {
-            "mean": round(statistics.mean(scores), 4),
-            "scores": scores
-        }
+        mean_score = round(statistics.mean(scores), 4)
 
-    print(json.dumps({
-        "baseline_scores": results,
-        "model": model
-    }, indent=2))
+        print(
+            f"[END] task={task_id} score={mean_score} steps={len(scores)}",
+            flush=True
+        )
 
 
 if __name__ == "__main__":
